@@ -97,17 +97,15 @@ function App() {
     }
   };
 
-  const handleCheck = async (task: Task) => {
-    try {
-      const newStreak = task.streak + 1;
-      const response = await api.patch<Task>(`tasks/${task.id}/`, {
-        streak: newStreak,
-      });
-      setTasks(tasks.map((t) => (t.id === task.id ? response.data : t)));
-    } catch (err) {
-      alert("Erro ao atualizar o streak.");
-    }
-  };
+  const handleCheck = async (taskId: number) => {
+  try {
+    const response = await api.post(`tasks/${taskId}/increment_streak/`);
+    // Atualiza a lista local com o novo valor do streak
+    setTasks(tasks.map(t => t.id === taskId ? { ...t, streak: response.data.streak } : t));
+  } catch (err) {
+    alert("Erro ao atualizar streak");
+  }
+};
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -189,7 +187,7 @@ function App() {
               <p>Streak: {task.streak} 🔥</p>
             </div>
             <div className="actions">
-              <button onClick={() => handleCheck(task)}>✅ Feito!</button>
+              <button onClick={() => handleCheck(task.id)}>✅ Feito!</button>
               <button onClick={() => handleDeleteTask(task.id)}>🗑️</button>
             </div>
           </div>

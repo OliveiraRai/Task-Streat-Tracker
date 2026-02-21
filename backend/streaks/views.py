@@ -1,8 +1,10 @@
 from .models import Task
 from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import timedelta
 from .serializers import TaskSerializer
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
@@ -18,8 +20,27 @@ class TaskViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    @action(detail=True, methods= ['post'])
+    def increment_streak(self, request, pk=None):
+        task = self.get_object()
+        now = timezone.now()
+
+        if task.last_completed:
+            diff = now.date() - task.last_completed.date()
+
+            if diff.days == 0:
+                return Response({'status': 'Já completado hoje!'}, status=200)
+            elif diff.days == 1:
+                task.streak =+ 1
+            else:
+                task.streak = 1 # perdeu streak, recomeça do 1
+
+            task.last_completed = now
+            task.save()
+            return Response({'streak': task.streak})
+
 @api_view(['POST'])
-@permission_classes([AllowAny]) # Qualquer um pode se cadastrar
+@permission_classes([AllowAny]) # qualquer um pode se cadastrar
 def register_user(request):
     username = request.data.get('username')
     password = request.data.get('password')
