@@ -20,24 +20,28 @@ class TaskViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    @action(detail=True, methods= ['post'])
+    @action(detail=True, methods=['post'])
     def increment_streak(self, request, pk=None):
         task = self.get_object()
         now = timezone.now()
 
         if task.last_completed:
-            diff = now.date() - task.last_completed.date()
+            diff = (now.date() - task.last_completed.date()).days
 
-            if diff.days == 0:
-                return Response({'status': 'Já completado hoje!'}, status=200)
-            elif diff.days == 1:
-                task.streak =+ 1
+            if diff == 0:
+                return Response({'status': 'Já completado hoje!', 'streak': task.streak}, status=200)
+            elif diff == 1:
+                task.streak += 1  # CORRIGIDO: de =+ para +=
             else:
-                task.streak = 1 # perdeu streak, recomeça do 1
+                task.streak = 1   # Perdeu o streak, recomeça
+        else:
+            # PRIMEIRA VEZ: Se nunca foi completada, o streak vira 1
+            task.streak = 1
 
-            task.last_completed = now
-            task.save()
-            return Response({'streak': task.streak})
+        task.last_completed = now
+        task.save()
+        
+        return Response({'streak': task.streak}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([AllowAny]) # qualquer um pode se cadastrar

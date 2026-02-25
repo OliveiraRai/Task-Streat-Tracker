@@ -1,42 +1,252 @@
-#root {
-  max-width: 1280px;
+* {
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh; 
+  background-color: rgb(35, 32, 36);
+}
+
+/* App */
+/* Navbar */
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.container header {
+  font-size: 10px;
+}
+
+.user-area {
+  width: 44px;
+  height: 44px;
+  margin: auto 0;
+  border-radius: 50%;
+  border: 1px solid rgb(128, 128, 128);
+  display: flex;
+  font-size: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.user-area:hover {
+  border: 1px solid rgb(184, 184, 184);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 15px 15px 0 0;
+  background: rgb(32, 32, 32);
+  border: 1px solid rgb(128, 128, 128);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  width: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.user-dropdown button {
+  font-size: 14px;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  border: 1px solid rgb(128, 128, 128);
+  outline: none;
+}
+
+
+.user-info-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  font-weight: bold;
+}
+
+.avatar-container {
+  border: 1px solid rgb(128, 128, 128);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.avatar-large {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  object-fit: cover;
+}
+
+.avatar-mini {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logout-btn {
+  border: none;
+}
+
+.logout-btn:hover {
+  background-color: #df3e3e;
+}
+
+/* Main */
+
+.main {
+  display: flex;
+  padding-top: 250px;
+  flex-direction: column;
+  width: 50%;
   margin: 0 auto;
-  padding: 2rem;
+  align-items: center;
+}
+
+.taskCreator {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  justify-content: center;
+  margin-bottom: 78px;
+}
+
+.taskCreator input {
+  text-align: left;
+  width: 70%;
+  height: 50px;
+  padding: 15px;
+  border-radius: 30px;
+  border: 1px solid rgb(128, 128, 128);
+  outline: none;
+}
+
+.taskCreator button {
+  margin-left: 10px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0;
+  border-radius: 50%;
+  border: 1px solid rgb(128, 128, 128);
+}
+
+.taskCreator button:hover {
+  background-color: #47b55d;
+  border: none;
+}
+
+/* Login */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  gap: 10px;
+}
+
+.login-form input {
+  outline: none;
+  border: 1px solid rgb(128, 128, 128);
+  width: 70%;
+  height: 50px;
+  padding: 15px;
+  border-radius: 30px;
+}
+
+.login-form button {
+  border: none;
+  width: 70%;
+  height: 50px;
+  border-radius: 30px;
+  transition: 0.2s;
+}
+
+.login-form button:hover {
+  background-color: #47b55d;
+}
+
+.is-registering:hover {
+  text-decoration: underline;
+}
+
+/* Task Card */
+
+.task-list {
+  width: 70%;
+}
+
+.task-list p {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.task-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  background-color: #2d2b30;
+  border: 1px solid rgb(53, 53, 53);
+  margin-bottom: 10px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.data {
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.streak-info {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
-.card {
-  padding: 2em;
+.actions {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  padding: 8px 0;
 }
 
-.read-the-docs {
-  color: #888;
+.actions button {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+/* SETTINGS */ 
+
+.settings-screen button {
+  border: none; 
 }
