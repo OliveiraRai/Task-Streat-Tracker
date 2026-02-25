@@ -7,8 +7,8 @@
     <div align="center">
         <h1>🔥 Task Streak Tracker - V1.0</h1>
         <p><i>Transformando disciplina em chamas.</i></p>
-        <img src="https://img.shields.io/github/repo-size/seu-usuario/task-streak-tracker?style=for-the-badge" alt="Repo Size">
-        <img src="https://img.shields.io/github/languages/count/seu-usuario/task-streak-tracker?style=for-the-badge" alt="Languages">
+        <img src="https://img.shields.io/github/repo-size/OliveiraRai/task-streak-tracker?style=for-the-badge" alt="Repo Size">
+        <img src="https://img.shields.io/github/languages/count/OliveiraRai/task-streak-tracker?style=for-the-badge" alt="Languages">
     </div>
 
   <hr>
