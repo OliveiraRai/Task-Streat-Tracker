@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "./services/api";
 import "./App.css";
-import { User, Flame, Trash2, Plus, Settings, LogOut } from "lucide-react";
+import { User, Plus, Settings, LogOut } from "lucide-react";
 
 // --- INTERFACES ---
 interface User {
@@ -278,14 +278,14 @@ function App() {
       <div className="container" onClick={(e) => e.stopPropagation()}>
         <header>
           <h1>Task Streak Tracker</h1>
+          <button className="user-area" onClick={() => setMenuOpen(!menuOpen)}>
+            {profilePic ? (
+              <img src={profilePic} alt="Perfil" className="avatar-mini" />
+            ) : (
+              <User />
+            )}
+          </button>
         </header>
-        <button className="user-area" onClick={() => setMenuOpen(!menuOpen)}>
-          {profilePic ? (
-            <img src={profilePic} alt="Perfil" className="avatar-mini" />
-          ) : (
-            <User />
-          )}
-        </button>
 
         {menuOpen && (
           <div className="user-dropdown">
@@ -335,14 +335,13 @@ function App() {
                   <div className="data">
                     <p style={{ fontWeight: "bold" }}>{task.title}</p>
                     <div className="streak-info">
-                      <Flame size={16} color="#ff5722" />
                       <span>{task.streak} dias</span>
                     </div>
                   </div>
                   <div className="actions">
-                    <button onClick={() => handleCheck(task.id)}>🔥</button>
-                    <button onClick={() => handleDeleteTask(task.id)}>
-                      🗑️
+                    <button className="done" onClick={() => handleCheck(task.id)}>Feito</button>
+                    <button className="delete" onClick={() => handleDeleteTask(task.id)}>
+                      Excluir
                     </button>
                   </div>
                 </div>
