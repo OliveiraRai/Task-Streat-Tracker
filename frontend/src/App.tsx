@@ -154,7 +154,7 @@ function App() {
     if (isAuthenticated) {
       setLoading(true);
       api
-        .get<Task[]>("tasks/")
+        .get<Task[]>("api/tasks/")
         .then((res) => {
           setTasks(res.data);
           setLoading(false);
@@ -172,7 +172,7 @@ function App() {
     e.preventDefault();
 
     try {
-      await api.post("/register/", {
+      await api.post("api/register/", {
         username,
         password,
       });
@@ -203,7 +203,7 @@ function App() {
   const handleCreateTask = async () => {
     if (!newTaskTitle) return;
     try {
-      const res = await api.post<Task>("tasks/", {
+      const res = await api.post<Task>("api/tasks/", {
         title: newTaskTitle,
         streak: 0,
       });
@@ -216,7 +216,7 @@ function App() {
 
   const handleCheck = async (taskId: number) => {
     try {
-      const res = await api.post(`tasks/${taskId}/increment_streak/`);
+      const res = await api.post(`api/tasks/${taskId}/increment_streak/`);
 
       // 1. Verificamos se a mensagem de "Já completado" está dentro de 'status'
       // que foi o nome que demos no dicionário do Python (Response({'status': ...}))
@@ -243,7 +243,7 @@ function App() {
 
   const handleDeleteTask = async (id: number) => {
     try {
-      await api.delete(`tasks/${id}/`);
+      await api.delete(`api/tasks/${id}/`);
       setTasks(tasks.filter((t) => t.id !== id));
     } catch (err) {
       alert("Erro ao deletar");
