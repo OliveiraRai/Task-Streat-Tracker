@@ -171,7 +171,7 @@ function App() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await api.post("http://127.0.0.1:8000/api-token-auth/", {
+      const response = await api.post("/api-token-auth/", {
         username,
         password,
       });
