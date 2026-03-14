@@ -168,6 +168,23 @@ function App() {
     }
   }, [isAuthenticated]);
 
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      await api.post("/register/", {
+        username,
+        password,
+      });
+
+      alert("Conta criada! Faça login.");
+      setIsRegistering(false);
+    } catch (err: any) {
+      const msg = err.response?.data?.error || "Erro ao criar conta";
+      alert(msg);
+    }
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -239,7 +256,7 @@ function App() {
     return (
       <div className="login-container">
         <form
-          onSubmit={isRegistering ? (e) => e.preventDefault() : handleLogin}
+          onSubmit={isRegistering ? handleRegister : handleLogin}
           className="login-form"
         >
           <h1>{isRegistering ? "Criar Conta" : "Entrar"}</h1>
@@ -339,8 +356,16 @@ function App() {
                     </div>
                   </div>
                   <div className="actions">
-                    <button className="done" onClick={() => handleCheck(task.id)}>Feito</button>
-                    <button className="delete" onClick={() => handleDeleteTask(task.id)}>
+                    <button
+                      className="done"
+                      onClick={() => handleCheck(task.id)}
+                    >
+                      Feito
+                    </button>
+                    <button
+                      className="delete"
+                      onClick={() => handleDeleteTask(task.id)}
+                    >
                       Excluir
                     </button>
                   </div>
